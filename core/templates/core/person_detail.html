@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ object.first_name }} - {{ block.super }} {% endblock %}
+
+{% block main %}
+
+<div class="row border mb-2">
+  <div class="col-md-12">
+    <h3>{{ object.first_name }} {% if object.last_name %}{{ object.last_name }}{% endif %}</h3>
+    <a href="" class="small">Actor</a>
+    <a href="" class="small">Producer</a>
+    <a href="" class="small">Writer</a>
+
+    <div class="info">
+      <b>Born:</b> {{ object.born }}
+      {% if died %}
+      <b>Died:</b> {{ object.died }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="row border">
+  <div class="col-md-12">
+    <h3>Filmography</h3>
+    <h4 class="text-success">Actor:</h4>
+    {% for role in object.role_set.all %}
+      <li>
+        <a href="{% url 'core:MovieDetail' pk=movie.id %}">{{ role.movie }}: </a> {{ role.name }}
+      </li>
+    {% endfor %}
+
+    <h4 class="text-success">Director:</h4>
+    {% for movie in object.directed.all %}
+      <li>
+        <a href="{% url 'core:MovieDetail' pk=movie.id %}">{{ movie }}: </a>
+      </li>
+    {% endfor %}
+
+    <h4 class="text-success">Writer:</h4>
+    {% for role in object.writing_credits.all %}
+      <li>
+        <a href="{% url 'core:MovieDetail' pk=movie.id %}">{{ movie }}: </a>
+      </li>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ object.title }} - {{ block.super }} {% endblock %}
+
+{% block main %}
+
+<div class="card">
+  <div class="card-body">
+    <h2>{{ object }}</h2>
+      <p class="lead">
+          {{ object.plot }}
+      </p>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+<h3>Rating: <span class="badge badge-primary">
+    {{ object.get_rating_display }}
+</span></h3>
+
+{% endblock %}
