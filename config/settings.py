@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
     'debug_toolbar',
     'core',
     'django.contrib.admin',
@@ -130,3 +131,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = ()
 
 INTERNAL_IPS = ('127.0.0.1')
+
+LOGIN_REDIRECT_URL = 'users:login'
+

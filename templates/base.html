@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,9 +10,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title> {% block title %} MovieGeek {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
       <style>
           #navbarNav ul li a.active{color: red}
           a:hover { text-decoration: none }
+          .btns.d-inline #id_value { list-style: none; padding-left: 0; }
+          .btns.d-inline #id_value li { display: inline; }
       </style>
   </head>
   <body>
@@ -28,6 +32,23 @@
           <li class="nav-item">
             <a class="nav-link active" href="#">Top 10</a>
           </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link disabled" href="">{{ request.user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </nav>

@@ -20,8 +20,8 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/', include('users.urls', namespace='users')),
     path('', include('core.urls', namespace='core')),
-
 ]
 
 

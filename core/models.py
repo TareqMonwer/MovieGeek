@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.db.models.aggregates import Sum
 
 
 class PersonManager(models.Manager):
@@ -19,6 +21,11 @@ class MovieManager(models.Manager):
             'writers', 'actors')
         return qs
 
+    def all_with_related_persons_and_scores(self):
+        qs = self.all_with_related_persons()
+        qs = qs.annotate(score=Sum('vote__value'))
+        return qs
+
 
 class Person(models.Model):
     first_name = models.CharField(max_length=140)
@@ -32,6 +39,10 @@ class Person(models.Model):
         ordering = ('first_name', 'last_name')
 
     def __str__(self):
+        if not self.first_name:
+            self.first_name = ''
+        if not self.last_name:
+            self.last_name = ''
         if self.died:
             return '{} {} ({}-{})'.format(
                 self.first_name, self.last_name, self.born, self.died)
@@ -101,3 +112,40 @@ class Role(models.Model):
 
     class Meta:
         unique_together = ('movie', 'person', 'name')
+
+
+class VoteManager(models.Manager):
+
+    def get_vote_or_unsaved_blank_vote(self, movie, user):
+        try:
+            return Vote.objects.get(
+                movie=movie,
+                user=user
+            )
+        except Vote.DoesNotExist:
+            return Vote(
+                movie=movie,
+                user=user
+            )
+
+
+class Vote(models.Model):
+    UP = 1
+    DOWN = -1
+    VALUE_CHOICES = (
+        (UP, '👍'),
+        (DOWN, '👎')
+    )
+
+    value = models.SmallIntegerField(choices=VALUE_CHOICES, )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    voted_on = models.DateTimeField(auto_now=True)
+
+    objects = VoteManager()
+
+    class Meta:
+        unique_together = ('user', 'movie')

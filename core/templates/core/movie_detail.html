@@ -4,22 +4,81 @@
 
 {% block main %}
 
-<div class="card">
-  <div class="card-body">
-    <h2>{{ object }}</h2>
-      <p class="lead">
-          {{ object.plot }}
-      </p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h2>{{ object }}</h2>
+        <ul>
+
+        </ul>
+          <p class="lead">
+              {{ object.plot }}
+          </p>
+      </div>
+    </div>
   </div>
 </div>
+
+<div class="card p-3 mt-3">
+  <h5><b>Director:</b> {{ object.director }}</h5>
+  <h5><b>Writer(s):</b></h5>
+    <ul>
+     {% for writer in object.writers.all %}
+     <li>{{ writer.first_name }}</li>
+     {% endfor %}
+    </ul>
+</div>
+
+<div class="card mt-3">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Actor</th>
+          <th scope="col">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for actor in object.actors.all %}
+        <tr>
+          <td>{{ actor }}</td>
+          <td>{{ actor.role_set.all.first.name }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 {% endblock %}
 
 
 {% block sidebar %}
 
-<h3>Rating: <span class="badge badge-primary">
-    {{ object.get_rating_display }}
-</span></h3>
+<div>
+  <h3>Rating:
+    <span class="badge badge-primary">{{ object.get_rating_display }}</span>
+  </h3>
+</div>
+
+<div class="vote">
+  {% if vote_form %}
+  <form action="{{ vote_form_url }}" method="post">
+    {% csrf_token %}
+    <div class="btns d-inline">
+      {{ vote_form.as_p }}
+    </div>
+    <input type="submit" value="Vote" class="btn btn-primary">
+  </form>
+  <h4 class="mt-3">Total Vote(s):
+    <span class="badge badge-primary">{{ object.score|default_if_none:'TBD' }}</span>
+  </h4>
+
+  {% else %}
+  <p>Log in to vote for this movie.</p>
+  {% endif %}
+</div>
 
 {% endblock %}
