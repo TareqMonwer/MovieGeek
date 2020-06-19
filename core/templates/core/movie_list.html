@@ -11,7 +11,9 @@
       <div class="text-dark text-center">
         {{ movie.get_rating_display }}
       </div>
-      <div class="card-body" style="background: url('https://picsum.photos/id/932/200/300'); background-position: center center; min-height: 200px;">
+      <div class="card-body"
+           style="background: url('{{ movie.poster.url }}'); min-height: 350px;
+            background-size: 100% 100%;">
       </div>
       <div class="info text-center">
         <p class="card-title small">{{ movie }}</p>

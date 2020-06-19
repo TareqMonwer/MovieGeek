@@ -26,6 +26,14 @@ class MovieManager(models.Manager):
         qs = qs.annotate(score=Sum('vote__value'))
         return qs
 
+    def top_movies(self, limit=10):
+        qs = self.get_queryset()
+        qs = qs.annotate(vote__sum=Sum('vote__value'))
+        qs = qs.exclude(vote__sum=None)
+        qs = qs.order_by('-vote__sum')
+        qs = qs[:limit]
+        return qs
+
 
 class Person(models.Model):
     first_name = models.CharField(max_length=140)
@@ -71,6 +79,10 @@ class Movie(models.Model):
 
     title = models.CharField(max_length=140)
     plot = models.TextField()
+    poster = models.ImageField(
+        upload_to='movie_posters',
+        default='default-movie.png',
+        blank=True)
     director = models.ForeignKey(
         to='Person',
         on_delete=models.SET_NULL,

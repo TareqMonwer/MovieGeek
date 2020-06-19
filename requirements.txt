@@ -4,10 +4,13 @@ Django==2.2.5
 django-debug-toolbar==2.0
 idna==2.8
 pipfile==0.0.2
-psycopg2==2.8.3
+psycopg2-binary==2.8.5
 pyperclip==1.7.0
 pytz==2019.2
 requests==2.22.0
 sqlparse==0.3.0
 toml==0.10.0
 urllib3==1.25.6
+Pillow
+django-environ
+django-import-export

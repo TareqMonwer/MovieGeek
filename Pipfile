@@ -6,10 +6,22 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
-psycopg2 = "*"
-django-debug-toolbar = "*"
-pipfile = "*"
+certifi = "==2019.9.11"
+chardet = "==3.0.4"
+django-debug-toolbar = "==2.0"
+idna = "==2.8"
+pipfile = "==0.0.2"
+pyperclip = "==1.7.0"
+pytz = "==2019.2"
+requests = "==2.22.0"
+sqlparse = "==0.3.0"
+toml = "==0.10.0"
+urllib3 = "==1.25.6"
+Django = "==2.2.5"
+Pillow = "*"
+psycopg2-binary = "==2.8.5"
+django-environ = "*"
+django-import-export = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

@@ -11,7 +11,7 @@ from core.forms import VoteForm
 
 class MovieList(ListView):
     model = Movie
-    paginate_by = 10
+    paginate_by = 12
 
 
 class MovieDetail(DetailView):
@@ -94,3 +94,8 @@ class UpdateVote(LoginRequiredMixin, UpdateView):
             kwargs={'pk': movie_id}
         )
         return redirect(to=movie_detail_url)
+
+
+class TopMovies(ListView):
+    template_name = 'core/top_movies_list.html'
+    queryset = Movie.objects.top_movies(limit=10)
