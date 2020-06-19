@@ -13,6 +13,12 @@ class MovieList(ListView):
     model = Movie
     paginate_by = 12
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        top_movies = Movie.objects.top_movies()
+        ctx['top_movies'] = top_movies
+        return ctx
+
 
 class MovieDetail(DetailView):
     queryset = Movie.objects.all_with_related_persons_and_scores()

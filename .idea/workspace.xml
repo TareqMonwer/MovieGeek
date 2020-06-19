@@ -57,6 +57,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -108,7 +109,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1569430174229</updated>
-      <workItem from="1592556043691" duration="9631000" />
+      <workItem from="1592556043691" duration="19499000" />
+      <workItem from="1592576373597" duration="1317000" />
+      <workItem from="1592589256466" duration="1567000" />
     </task>
     <servers />
   </component>
@@ -141,5 +144,9 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="449" y="187" key="SettingsEditor/0.27.1920.1053/1920.0.1366.768@0.27.1920.1053" timestamp="1592556123760" />
+    <state x="731" y="467" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592567700348">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="731" y="467" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1053/1920.0.1366.768@0.27.1920.1053" timestamp="1592567700348" />
   </component>
 </project>

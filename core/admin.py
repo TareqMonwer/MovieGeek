@@ -11,6 +11,7 @@ class MovieResource(resources.ModelResource):
 
 
 class MovieAdmin(ImportExportModelAdmin):
+    list_filter = ('year', )
     resource_class = MovieResource
 
 

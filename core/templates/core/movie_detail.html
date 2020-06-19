@@ -51,12 +51,10 @@
   </div>
 </div>
 
-
 {% endblock %}
 
 
 {% block sidebar %}
-
 <div>
   <h3>Rating:
     <span class="badge badge-primary">{{ object.get_rating_display }}</span>
@@ -65,20 +63,26 @@
 
 <div class="vote">
   {% if vote_form %}
-  <form action="{{ vote_form_url }}" method="post">
+  <form action="{{ vote_form_url }}" method="post" id="vote-form">
     {% csrf_token %}
     <div class="btns d-inline">
       {{ vote_form.as_p }}
     </div>
-    <input type="submit" value="Vote" class="btn btn-primary">
+<!--    <input type="submit" value="Vote" class="btn btn-primary" id="submit">-->
+    <input type="hidden" id="movieID" value="{{ object.id }}">
   </form>
   <h4 class="mt-3">Total Vote(s):
-    <span class="badge badge-primary">{{ object.score|default_if_none:'TBD' }}</span>
+    <span class="badge badge-primary" id="total-vote-display">{{ object.score|default_if_none:'TBD' }}</span>
   </h4>
 
   {% else %}
   <p>Log in to vote for this movie.</p>
   {% endif %}
 </div>
+{% endblock %}
 
+{% block javascript %}
+<script>
+
+</script>
 {% endblock %}
