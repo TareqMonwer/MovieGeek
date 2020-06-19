@@ -3,7 +3,7 @@
 {% block title %} All Movies - {{ block.super }} {% endblock %}
 
 {% block main %}
-<div class="row">
+<div class="row justify-content-center">
 {% for movie in object_list %}
 <div class="col-md-3">
   <a href="{% url 'core:MovieDetail' pk=movie.id %}" class="d-block">
@@ -12,7 +12,7 @@
         {{ movie.get_rating_display }}
       </div>
       <div class="card-body"
-           style="background: url('{{ movie.poster.url }}'); min-height: 350px;
+           style="background: url('{{ movie.poster }}'); min-height: 350px;
             background-size: 100% 100%;">
       </div>
       <div class="info text-center">
@@ -29,7 +29,7 @@
 
 
 {% if is_paginated %}
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" class="table-responsive mb-2">
   <ul class="pagination">
     {% if page_obj.has_previous %}
       <li class="page-item">
