@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load cache %}
 
 {% block title %} Top 10 Movies - {{ block.super }} {% endblock %}
 
@@ -17,7 +16,6 @@
     </tr>
   </thead>
   <tbody>
-  {% cache 300 top10 %}
     {% for movie in object_list %}
     <tr>
       <td scope="row">
@@ -30,7 +28,6 @@
       <td></td>
     </tr>
     {% endfor %}
-  {% endcache %}
   </tbody>
 </table>
 

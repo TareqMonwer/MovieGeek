@@ -1,11 +1,13 @@
+import django
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView)
 
-from core.models import Movie, Person, Role, Vote
+from core.models import Movie, Person, Vote
 from core.forms import VoteForm
 from core.mixins import CachePageVaryOnCoockieMixin
 
@@ -34,17 +36,14 @@ class MovieDetail(DetailView):
                 vote_form_url = reverse(
                     'core:UpdateVote',
                     kwargs={'movie_id': vote.movie.id, 'pk': vote.id})
-                user_vote_flag = 'voted'
             else:
                 vote_form_url = (
                     reverse(
                         'core:CreateVote',
                         kwargs={'movie_id': self.object.id}))
-                user_vote_flag = 'note-voted'
             vote_form = VoteForm(instance=vote)
             ctx['vote_form'] = vote_form
             ctx['vote_form_url'] = vote_form_url
-            ctx['user_vote_flag'] = user_vote_flag
         return ctx
 
 
@@ -67,13 +66,13 @@ class CreateVote(LoginRequiredMixin, CreateView):
             'core:MovieDetail',
             kwargs={'pk': movie_id})
 
-    # def render_to_response(self, context, **response_kwargs):
-    #     movie_id = context['object'].id
-    #     movie_detail_url = reverse(
-    #         'core:MovieDetail',
-    #         kwargs={'pk': movie_id}
-    #     )
-    #     return redirect(to=movie_detail_url)
+    def render_to_response(self, context, **response_kwargs):
+        movie_id = context['object'].id
+        movie_detail_url = reverse(
+            'core:MovieDetail',
+            kwargs={'pk': movie_id}
+        )
+        return redirect(to=movie_detail_url)
 
 
 class UpdateVote(LoginRequiredMixin, UpdateView):
@@ -108,4 +107,16 @@ class UpdateVote(LoginRequiredMixin, UpdateView):
 
 class TopMovies(ListView):
     template_name = 'core/top_movies_list.html'
-    queryset = Movie.objects.top_movies(limit=10)
+
+    def get_queryset(self):
+        limit = 10
+        key = 'top_movies_%s' % limit
+        cached_qs = cache.get(key)
+        if cached_qs:
+            same_django = cached_qs._django_version == django.get_version()
+            if same_django:
+                return cached_qs
+        qs = Movie.objects.top_movies(
+            limit=limit,)
+        cache.set(key, qs)
+        return qs
