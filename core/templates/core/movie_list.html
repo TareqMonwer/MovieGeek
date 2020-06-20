@@ -89,6 +89,8 @@
           {{ movie.vote__sum }}
       </span>
     </li>
+    {% empty %}
+      <li class="list-group-item">Vote movies to make them top.</li>
     {% endfor %}
   </ul>
 </div>

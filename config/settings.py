@@ -147,5 +147,15 @@ MEDIA_URL = '/media/'
 
 INTERNAL_IPS = ('127.0.0.1')
 
-LOGIN_REDIRECT_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'core:MovieList'
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'default-locmemcache',
+        'TIMEOUT': 5,   # 5 seconds
+    }
+}
+
+CSRF_USE_SESSIONS = True

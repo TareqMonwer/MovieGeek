@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView)
 
 from core.models import Movie, Person, Role, Vote
 from core.forms import VoteForm
+from core.mixins import CachePageVaryOnCoockieMixin
 
 
-class MovieList(ListView):
+class MovieList(CachePageVaryOnCoockieMixin, ListView):
     model = Movie
     paginate_by = 12
 
@@ -33,14 +34,17 @@ class MovieDetail(DetailView):
                 vote_form_url = reverse(
                     'core:UpdateVote',
                     kwargs={'movie_id': vote.movie.id, 'pk': vote.id})
+                user_vote_flag = 'voted'
             else:
                 vote_form_url = (
                     reverse(
                         'core:CreateVote',
                         kwargs={'movie_id': self.object.id}))
+                user_vote_flag = 'note-voted'
             vote_form = VoteForm(instance=vote)
             ctx['vote_form'] = vote_form
             ctx['vote_form_url'] = vote_form_url
+            ctx['user_vote_flag'] = user_vote_flag
         return ctx
 
 
@@ -63,13 +67,13 @@ class CreateVote(LoginRequiredMixin, CreateView):
             'core:MovieDetail',
             kwargs={'pk': movie_id})
 
-    def render_to_response(self, context, **response_kwargs):
-        movie_id = context['object'].id
-        movie_detail_url = reverse(
-            'core:MovieDetail',
-            kwargs={'pk': movie_id}
-        )
-        return redirect(to=movie_detail_url)
+    # def render_to_response(self, context, **response_kwargs):
+    #     movie_id = context['object'].id
+    #     movie_detail_url = reverse(
+    #         'core:MovieDetail',
+    #         kwargs={'pk': movie_id}
+    #     )
+    #     return redirect(to=movie_detail_url)
 
 
 class UpdateVote(LoginRequiredMixin, UpdateView):
