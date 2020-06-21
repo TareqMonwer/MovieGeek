@@ -22,6 +22,10 @@ Pillow = "*"
 psycopg2-binary = "==2.8.5"
 django-environ = "*"
 django-import-export = "*"
+django-storages = "==1.6.5"
+boto3 = "==1.4.7"
+uWSGI = "==2.0.15"
+wheel = "*"
 
 [requires]
 python_version = "3.8"

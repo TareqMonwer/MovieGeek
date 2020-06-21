@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} Top 10 Movies - {{ block.super }} {% endblock %}
+
+{% block main %}
+
+<h2>Top 10 Movies</h2>
+<small>Top 10 movies that moviegeeks loved.</small>
+
+<table class="table border">
+  <thead>
+    <tr>
+      <th scope="col">Rank and Title</th>
+      <th scope="col">MovieGeek Rating</th>
+      <th scope="col">Your Vote</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for movie in object_list %}
+    <tr>
+      <td scope="row">
+        {{ forloop.counter }}
+        <a href="{% url 'core:MovieDetail' pk=movie.id %}">
+          {{ movie }}
+        </a>
+      </td>
+      <td>{{ movie.get_rating_display }}</td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -58,7 +58,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -113,7 +113,9 @@
       <workItem from="1592576373597" duration="1317000" />
       <workItem from="1592589256466" duration="11094000" />
       <workItem from="1592631157559" duration="7531000" />
-      <workItem from="1592654229881" duration="5972000" />
+      <workItem from="1592654229881" duration="7898000" />
+      <workItem from="1592736148350" duration="1213000" />
+      <workItem from="1592741101459" duration="4553000" />
     </task>
     <servers />
   </component>
@@ -142,10 +144,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="418" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053/1920.0.1366.768@0.27.1920.1053" timestamp="1592556081920" />
-    <state x="449" y="187" key="SettingsEditor" timestamp="1592556123760">
+    <state x="449" y="187" key="SettingsEditor" timestamp="1592742030836">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="449" y="187" key="SettingsEditor/0.27.1920.1053/1920.0.1366.768@0.27.1920.1053" timestamp="1592556123760" />
+    <state x="449" y="187" key="SettingsEditor/0.27.1920.1053/1920.0.1366.768@0.27.1920.1053" timestamp="1592742030836" />
     <state x="731" y="467" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592567700348">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
